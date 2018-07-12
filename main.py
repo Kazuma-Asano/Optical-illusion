@@ -24,7 +24,7 @@ args = parser.parse_args()
 
 # データセットの設定
 print('==> Preparing data..')
-print('-' * 10)
+print('-' * 20)
 train_data_transform = transforms.Compose([
         transforms.RandomResizedCrop(224),
         transforms.RandomHorizontalFlip(),
@@ -56,7 +56,7 @@ print()
 #GPUの設定
 use_gpu = torch.cuda.is_available()
 print('use gpu: ', use_gpu)
-print('-' * 10)
+print('-' * 20)
 print()
 
 ####### TRAIN #########
@@ -88,10 +88,10 @@ def train(model, criterion, optimizer, scheduler):
         correct += preds.eq(labels).sum().item()
 
         progress_bar(batch_idx, len(trainloader),
-                    'Train Loss: {:.3f} | Train Acc: {:.3f} % ({}/{})'.format(train_loss/(batch_idx+1),
-                                                                            100.*correct/total,
-                                                                            correct, total))
-
+                        'Train Loss: %.3f | Train Acc: %.3f%% (%d/%d)'
+                        % (train_loss/(batch_idx+1), 100.*correct/total, correct, total))
+                        
+    # そのepoch最後のLossとAccuracy
     print('Train Loss: {:.4f}, Train Acc: {:.4f} %'.format(train_loss/(batch_idx+1), 100.*correct/total))
 
 ######## TEST ########
@@ -169,7 +169,7 @@ def visualize_model(model, num_images=6):
 ##### modelの設定 ####
 #####################
 print('==> Building model..')
-print('-' * 10)
+print('-' * 20)
 model = models.resnet18(pretrained=False)
 num_features = model.fc.in_features
 
